@@ -25,8 +25,8 @@ public class Hardware11588 {
     public ModernRoboticsI2cRangeSensor rangeSensorFront;
 
     public DcMotor leftMotor   = null;
-    public DcMotor  rightMotor  = null;
-
+    public DcMotor rightMotor  = null;
+    public DcMotor pullyMotor  = null; // slot 2 motor controller 2
     public final float WIDTH_INCHES = 18;
 
     HardwareMap hwMap           =  null;
@@ -41,15 +41,20 @@ public class Hardware11588 {
         // Define and Initialize Motors
         leftMotor   = hwMap.dcMotor.get("left_drive");
         rightMotor  = hwMap.dcMotor.get("right_drive");
+        pullyMotor = hwMap.dcMotor.get("pully_motor");
+
         rightMotor.setDirection(DcMotor.Direction.REVERSE); // Set to REVERSE if using AndyMark motors
         leftMotor.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        pullyMotor.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power
         leftMotor.setPower(0);
         rightMotor.setPower(0);
+        pullyMotor.setPower(0);
 
         leftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pullyMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void move(double lx, double rx, double px, double py) {
